@@ -50,9 +50,3 @@ function likeCallback(e) {
 
 
 getParks();
-
-let likeGlyphs = document.querySelectorAll('li');
-
-for (let glyph of likeGlyphs){
-  glyph.addEventListener("click",likeCallback)
-}
