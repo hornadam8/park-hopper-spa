@@ -1,1 +1,1 @@
-add comments model to back end, add comment button/show comments
+add like status with glyph to Park model with migration, update JS to be reactive with variable

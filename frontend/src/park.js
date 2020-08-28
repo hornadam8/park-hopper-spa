@@ -1,10 +1,11 @@
 class Park{
-  constructor(id,image,name,description,comments){
+  constructor(id,image,name,description,comments,likes){
     this.id = id
     this.name = name;
     this.image = image;
     this.description = description;
-    this.comments = comments
+    this.comments = comments;
+    this.likes = likes
     Park.all.push(this)
   }
 
@@ -17,7 +18,7 @@ class Park{
   }
 
   static make(data){
-    let parks = data.map(park => new Park(park.id,park.image,park.name,park.description,park.comments));
+    let parks = data.map(park => new Park(park.id,park.image,park.name,park.description,park.comments,park.likes));
     Park.render(parks)
   }
 
@@ -39,7 +40,7 @@ class Park{
     <h5>${park.name}</h5>
     <p>${park.description}</p>
     <ul>
-      <li class="like">Like <span class="like-glyph">&#x2661;</span></li>
+      <li class="like">Likes: ${park.likes} <span class="like-glyph">&#x2661;</span></li>
     </ul>
     <button class='comments_toggle' id='comments_toggle'>comments</button>
     <br>
@@ -75,7 +76,9 @@ class Park{
       Comment.formSubmit(data);
       this.getElementsByTagName('input').comment.value = ""
     });
-    
-    main.appendChild(parkCard)
+    let cards = Array.prototype.slice.call(document.getElementsByClassName("card"));
+    if(!cards.some(e => {return e.dataset.id === parkCard.dataset.id})){
+      main.appendChild(parkCard)
+    }
   }
 }
