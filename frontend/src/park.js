@@ -1,11 +1,12 @@
 class Park{
-  constructor(id,image,name,description,comments,likes){
+  constructor(id,image,name,description,comments,likes,likeStatus){
     this.id = id
     this.name = name;
     this.image = image;
     this.description = description;
     this.comments = comments;
     this.likes = likes
+    this.likeStatus = likeStatus
     Park.all.push(this)
   }
 
@@ -18,7 +19,7 @@ class Park{
   }
 
   static make(data){
-    let parks = data.map(park => new Park(park.id,park.image,park.name,park.description,park.comments,park.likes));
+    let parks = data.map(park => new Park(park.id,park.image,park.name,park.description,park.comments,park.likes,park.like_status));
     Park.render(parks)
   }
 
@@ -34,13 +35,12 @@ class Park{
     let parkCard = document.createElement('div');
     parkCard.className = "card";
     parkCard.dataset.id = park.id;
-
     parkCard.innerHTML = `
     <img src =${park.image} width="300" height="150">
     <h5>${park.name}</h5>
     <p>${park.description}</p>
     <ul>
-      <li class="like">Likes: ${park.likes} <span class="like-glyph">&#x2661;</span></li>
+      <li class="like"><span class="like-text">Likes: ${park.likes}</span><span class="like-glyph">${park.likeStatus}</span></li>
     </ul>
     <button class='comments_toggle' id='comments_toggle'>comments</button>
     <br>
@@ -55,6 +55,10 @@ class Park{
         <button id='submit'>submit</button>
     </form>
     `
+    console.log(parkCard.getElementsByClassName('like')[0])
+    if (park.likeStatus == '♥'){
+      parkCard.getElementsByClassName('like-glyph')[0].classList.add('activated-heart')
+    }
 
     let commentContainerList = parkCard.getElementsByClassName('comment_container')[0].getElementsByTagName('ul')[0];
     Comment.makeFromDb(park.comments,commentContainerList);
@@ -80,5 +84,8 @@ class Park{
     if(!cards.some(e => {return e.dataset.id === parkCard.dataset.id})){
       main.appendChild(parkCard)
     }
+    //else{
+      //location.reload()
+    //}
   }
 }

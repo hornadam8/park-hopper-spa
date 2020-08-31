@@ -8,7 +8,7 @@ class ParksController < ApplicationController
 
   def update
     park = Park.find(params[:id])
-    park.update(likes: params[:likes])
+    park.update(likes: params[:likes],like_status: params[:likeStatus])
     render json: park
   end
 

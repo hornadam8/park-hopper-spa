@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: black;
   }
 
   header {
@@ -56,7 +57,7 @@ body {
   button {
     font-size: .65em;
     color: #fff;
-    background-color: green;
+    background-color: black;
     border-radius: 10px;
   }
 
